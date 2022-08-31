@@ -1,6 +1,6 @@
 (function(){
-    const loadScript = function (url) {
-        return new Promise(function (resolve, reject) {
+    const loadScript = (url) => {
+        return new Promise((resolve, reject) => {
             const script = document.createElement('script');
             script.src = url;
 
@@ -12,11 +12,11 @@
         });
     };
 
-    const waterfall = function (promises) {
+    const waterfall = (promises) => {
         return promises.reduce(
-            function (p, c) {
-                return p.then(function () {
-                    return c.then(function (result) {
+            (p, c) => {
+                return p.then(() => {
+                    return c.then((result) => {
                         return true;
                     });
                 });
@@ -25,8 +25,8 @@
         );
     };
 
-    const loadScripts = function (arrayOfJs) {
-        const promises = arrayOfJs.map(function (url) {
+    const loadScripts = (arrayOfJs) => {
+        const promises = arrayOfJs.map((url) => {
             return loadScript(url);
         });
         return waterfall(promises);
@@ -35,7 +35,7 @@
     loadScripts([
         'https://code.jquery.com/jquery-3.6.1.min.js',
         'https://unpkg.com/vue@3'])
-    .then(function () {
+    .then(() => {
         console.log('all scripts are loaded...');
     });
 })();
